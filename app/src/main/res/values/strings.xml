@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Senia</string>
+    <string name="generar">Generar</string>
+    <string name="guardar">Guardar</string>
+    <string name="obtener">Obtener</string>
+</resources>
