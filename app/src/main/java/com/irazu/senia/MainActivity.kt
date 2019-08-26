@@ -1,5 +1,7 @@
 package com.irazu.senia
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +19,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         tvMensaje.text = "-------"
+        //Crear / cargar archivo de preferencias compartidas
+        var prefs:SharedPreferences = getSharedPreferences("MisClaves", Context.MODE_PRIVATE)
+
+        //Cargar valores guardados en mapa de claves
+        var copy = prefs.all
+        for((clave,valor) in copy){
+            mapa.put(clave, valor as String)
+        }
 
         btnGenerar.setOnClickListener{
             var pswd=RandomString.generar(charPool,8)
@@ -27,13 +37,19 @@ class MainActivity : AppCompatActivity() {
             tvMensaje.text = tmp
         }
         btnGuardar.setOnClickListener{
-            var tmp=etNombre.text
-            if(etNombre.text == null || etNombre.text.length == 0){
+            var nombre=etNombre.text.toString()
+            var pass=tvMensaje.text.toString()
+            if(nombre == null || nombre.length == 0){
                 Toast.makeText(this,"Debe definir un nombre", Toast.LENGTH_LONG).show()
                 //return@setOnClickListener
             } else {
-                mapa.put(etNombre.text.toString(), tvMensaje.text.toString())
+                mapa.put(nombre, pass)
             }
+            //Almacenar en SharedPreferences
+            var editor = prefs.edit()
+            editor.putString(nombre,pass)
+            editor.commit()
+
         }
         btnObtener.setOnClickListener{
             if(mapa.containsKey(etNombre.text.toString())) {
