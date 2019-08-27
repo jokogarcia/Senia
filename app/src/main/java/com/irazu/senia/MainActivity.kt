@@ -24,12 +24,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tvMensaje.text = "-------"
+
         //Crear / cargar archivo de preferencias compartidas
         prefs = getSharedPreferences("MisClaves", Context.MODE_PRIVATE)
 
         //Cargar valores guardados en mapa de claves
-        var copy = prefs.all
+        val copy = prefs.all
         for ((clave, valor) in copy) {
             mapa.put(clave, valor as String)
         }
@@ -67,14 +67,14 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, GENERAR_CLAVE)
         }
         if (savedInstanceState != null) {
-            var tmp = savedInstanceState.getString(MENSAJE)
+            val tmp = savedInstanceState.getString(MENSAJE)
             tvMensaje.text = tmp
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.run{
-            var tmp=tvMensaje.text.toString()
+            val tmp=tvMensaje.text.toString()
             putString(MENSAJE,tmp)
         }
         super.onSaveInstanceState(outState)
@@ -85,13 +85,9 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == GENERAR_CLAVE) {
             // Make sure the request was successful
             if (resultCode == Activity.RESULT_OK) {
-                if(data != null)
-                {
-                    val nuevaClave = data.extras.getString("clave")
-                    val nuevoNombre = data.extras.getString("nombre")
-                    agregarValores(nuevoNombre,nuevaClave)
-
-                }
+                val nuevaClave = data?.extras?.getString("clave") ?: ""
+                val nuevoNombre = data?.extras?.getString("nombre") ?: ""
+                agregarValores(nuevoNombre,nuevaClave)
             }
         }
     }
@@ -103,8 +99,7 @@ class MainActivity : AppCompatActivity() {
         mapa.put(nombre, clave)
 
         //Agregar a almacenamiento permanente
-        var editor = prefs.edit()
-        var prefs:SharedPreferences = getSharedPreferences("MisClaves", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
         editor.putString(nombre, clave)
         editor.commit()
 
