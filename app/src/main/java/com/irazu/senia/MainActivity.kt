@@ -1,12 +1,15 @@
 package com.irazu.senia
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 
@@ -16,75 +19,57 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
     var mapa = mutableMapOf<String,String>()
+    lateinit var prefs:SharedPreferences
+    lateinit var adaptador:ArrayAdapter<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         tvMensaje.text = "-------"
         //Crear / cargar archivo de preferencias compartidas
-        var prefs:SharedPreferences = getSharedPreferences("MisClaves", Context.MODE_PRIVATE)
+        prefs = getSharedPreferences("MisClaves", Context.MODE_PRIVATE)
 
         //Cargar valores guardados en mapa de claves
         var copy = prefs.all
-        for((clave,valor) in copy){
+        for ((clave, valor) in copy) {
             mapa.put(clave, valor as String)
         }
 
         //Crear interfaz para Spinner
-        var identificadores = ArrayList(mapa.keys)
-        val adaptador = ArrayAdapter(this,android.R.layout.simple_spinner_item,identificadores)
+
+        adaptador = ArrayAdapter(this, android.R.layout.simple_spinner_item, ArrayList(mapa.keys))
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spIdentificador.adapter=adaptador
+        spIdentificador.adapter = adaptador
+        spIdentificador.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val valorSeleccionado = parent?.adapter?.getItem(position).toString()
+                if (mapa.containsKey(valorSeleccionado)) {
+                    tvMensaje.text = mapa.get(valorSeleccionado)
+                }
+
+            }
+
+        }
+
 /*
 * OnClickListener Botón GENERAR
 */
-        btnGenerar.setOnClickListener{
-            var pswd=RandomString.generar(charPool,8)
-            tvMensaje.text = pswd
+        btnGenerar.setOnClickListener {
+            val intent = Intent(this, GenerarClave::class.java)
+            startActivityForResult(intent, GENERAR_CLAVE)
         }
-        if(savedInstanceState != null){
-            var tmp=savedInstanceState.getString(MENSAJE)
+        if (savedInstanceState != null) {
+            var tmp = savedInstanceState.getString(MENSAJE)
             tvMensaje.text = tmp
         }
-/*
-* OnClickListener Botón GUARDAR
-*/
-
-        btnGuardar.setOnClickListener{
-            var nombre=etNombre.text.toString()
-            var pass=tvMensaje.text.toString()
-            if(nombre == null || nombre.length == 0){
-                Toast.makeText(this,"Debe definir un nombre", Toast.LENGTH_LONG).show()
-                //return@setOnClickListener
-            } else {
-                mapa.put(nombre, pass)
-            }
-            //Almacenar en SharedPreferences
-            var editor = prefs.edit()
-            editor.putString(nombre,pass)
-            editor.commit()
-
-            //Actualizar SPINNER
-            adaptador.add(nombre)
-            adaptador.notifyDataSetChanged()
-
-        }
-/*
-* OnClickListener Botón OBTENER
-*/
-
-        btnObtener.setOnClickListener{
-            val valorSeleccionado = spIdentificador.selectedItem.toString()
-            if(mapa.containsKey(valorSeleccionado)) {
-                tvMensaje.text = mapa.get(valorSeleccionado)
-            }
-            else{
-                tvMensaje.text = "Clave no encontrada"
-            }
-
-
-        }
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -95,8 +80,41 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
     }
-companion object{
-    val MENSAJE ="mensaje"
-}
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // Check which request we're responding to
+        if (requestCode == GENERAR_CLAVE) {
+            // Make sure the request was successful
+            if (resultCode == Activity.RESULT_OK) {
+                if(data != null)
+                {
+                    val nuevaClave = data.extras.getString("clave")
+                    val nuevoNombre = data.extras.getString("nombre")
+                    agregarValores(nuevoNombre,nuevaClave)
+
+                }
+            }
+        }
+    }
+    fun agregarValores(nombre:String,clave:String){
+
+        if(nombre =="" || clave == "")
+            return
+        //Agregar al mapa actual
+        mapa.put(nombre, clave)
+
+        //Agregar a almacenamiento permanente
+        var editor = prefs.edit()
+        var prefs:SharedPreferences = getSharedPreferences("MisClaves", Context.MODE_PRIVATE)
+        editor.putString(nombre, clave)
+        editor.commit()
+
+        //Actualizar SPINNER
+        adaptador.add(nombre)
+        adaptador.notifyDataSetChanged()
+    }
+    companion object{
+        val MENSAJE ="mensaje"
+        val GENERAR_CLAVE = 0
+    }
 }
 

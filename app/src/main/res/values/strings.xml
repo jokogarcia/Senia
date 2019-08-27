@@ -4,4 +4,5 @@
     <string name="guardar">Guardar</string>
     <string name="obtener">Obtener</string>
     <string name="identificador">Identificador</string>
+    <string name="title_activity_generar_clave">GenerarClave</string>
 </resources>
