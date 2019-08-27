@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,6 +29,14 @@ class MainActivity : AppCompatActivity() {
             mapa.put(clave, valor as String)
         }
 
+        //Crear interfaz para Spinner
+        var identificadores = ArrayList(mapa.keys)
+        val adaptador = ArrayAdapter(this,android.R.layout.simple_spinner_item,identificadores)
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spIdentificador.adapter=adaptador
+/*
+* OnClickListener Botón GENERAR
+*/
         btnGenerar.setOnClickListener{
             var pswd=RandomString.generar(charPool,8)
             tvMensaje.text = pswd
@@ -36,6 +45,10 @@ class MainActivity : AppCompatActivity() {
             var tmp=savedInstanceState.getString(MENSAJE)
             tvMensaje.text = tmp
         }
+/*
+* OnClickListener Botón GUARDAR
+*/
+
         btnGuardar.setOnClickListener{
             var nombre=etNombre.text.toString()
             var pass=tvMensaje.text.toString()
@@ -50,10 +63,19 @@ class MainActivity : AppCompatActivity() {
             editor.putString(nombre,pass)
             editor.commit()
 
+            //Actualizar SPINNER
+            adaptador.add(nombre)
+            adaptador.notifyDataSetChanged()
+
         }
+/*
+* OnClickListener Botón OBTENER
+*/
+
         btnObtener.setOnClickListener{
-            if(mapa.containsKey(etNombre.text.toString())) {
-                tvMensaje.text = mapa.get(etNombre.text.toString())
+            val valorSeleccionado = spIdentificador.selectedItem.toString()
+            if(mapa.containsKey(valorSeleccionado)) {
+                tvMensaje.text = mapa.get(valorSeleccionado)
             }
             else{
                 tvMensaje.text = "Clave no encontrada"
@@ -61,6 +83,8 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

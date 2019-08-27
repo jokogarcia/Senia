@@ -30,8 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Identificador"
+        android:hint="@string/identificador"
         android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/spIdentificador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btnGuardar"
