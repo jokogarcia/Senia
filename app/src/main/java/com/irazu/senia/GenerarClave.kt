@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import kotlinx.android.synthetic.main.activity_generar_clave.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.btnGenerar
+
 import kotlinx.android.synthetic.main.content_generar_clave.*
 
 class GenerarClave : AppCompatActivity() {

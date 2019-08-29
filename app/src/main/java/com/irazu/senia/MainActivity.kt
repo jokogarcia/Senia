@@ -35,9 +35,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Crear interfaz para Spinner
-
-        adaptador = ArrayAdapter(this, android.R.layout.simple_spinner_item, ArrayList(mapa.keys))
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adaptador = ArrayAdapter(this, R.layout.elemento_spinner, ArrayList(mapa.keys))
+        adaptador.setDropDownViewResource(R.layout.elemento_spinner_desplegado)
         spIdentificador.adapter = adaptador
         spIdentificador.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 /*
 * OnClickListener Botón GENERAR
 */
-        btnGenerar.setOnClickListener {
+        ibtnGenerar.setOnClickListener {
             val intent = Intent(this, GenerarClave::class.java)
             startActivityForResult(intent, GENERAR_CLAVE)
         }

@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Candado"
+        app:srcCompat="@drawable/padlock" />
+
     <TextView
         android:id="@+id/tvMensaje"
         android:layout_width="match_parent"
@@ -20,14 +27,25 @@
     <Spinner
         android:id="@+id/spIdentificador"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp" />
 
-    <Button
-        android:id="@+id/btnGenerar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:text="@string/generar" />
+        android:gravity="bottom|right"
+        android:orientation="horizontal"
+        android:paddingTop="50dp">
+
+        <ImageButton
+            android:id="@+id/ibtnGenerar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="35dp"
+            android:contentDescription="Engranajes"
+            app:srcCompat="@drawable/ic_two_gears_svgrepo_com"
+            android:layout_marginEnd="35dp" />
+    </LinearLayout>
 
 </LinearLayout>
