@@ -40,12 +40,12 @@
 
         <ImageButton
             android:id="@+id/ibtnGenerar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="35dp"
             android:layout_marginRight="35dp"
-            android:contentDescription="Engranajes"
-            app:srcCompat="@drawable/ic_two_gears_svgrepo_com"
-            android:layout_marginEnd="35dp" />
+            android:background="@drawable/boton_redondo_fondo"
+            app:srcCompat="@android:drawable/ic_input_add" />
     </LinearLayout>
 
 </LinearLayout>

@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+
+
     val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
     var mapa = mutableMapOf<String,String>()
     lateinit var prefs:SharedPreferences
@@ -110,5 +112,6 @@ class MainActivity : AppCompatActivity() {
         val MENSAJE ="mensaje"
         val GENERAR_CLAVE = 0
     }
+
 }
 

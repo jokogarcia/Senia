@@ -7,21 +7,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".GenerarClave"
     tools:showIn="@layout/activity_generar_clave">
-
-    <EditText
-        android:id="@+id/etNombre2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
-        android:layout_marginBottom="266dp"
-        android:ems="10"
-        android:hint="@string/identificador"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGenerar" />
-
     <TextView
         android:id="@+id/tvClave"
         android:layout_width="wrap_content"
@@ -34,10 +19,10 @@
         android:text="@string/identificador"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@id/LayoutHerramientas"
+        app:layout_constraintBottom_toTopOf="@id/btnGenerar"
+        />
     <Button
         android:id="@+id/btnGenerar"
         android:layout_width="wrap_content"
@@ -54,4 +39,65 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvClave" />
+
+    <EditText
+        android:id="@+id/etNombre2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginBottom="266dp"
+        android:ems="10"
+        android:hint="@string/identificador"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGenerar" />
+
+
+    <LinearLayout
+        android:id="@+id/LayoutHerramientas"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btLongitud"
+            style="@style/iconoHerramienta"
+            app:srcCompat="@drawable/ic_largo" />
+
+        <ToggleButton
+            android:id="@+id/btMayuscula"
+            style="@style/iconoHerramienta"
+            android:text="ABC"
+            android:textOff="ABC"
+            android:textOn="ABC"/>
+
+        <ToggleButton
+            android:id="@+id/btMinuscula"
+            style="@style/iconoHerramienta"
+            android:text="abc"
+            android:textOff="abc"
+            android:textOn="abc"/>
+
+        <ToggleButton
+            android:id="@+id/btNumeros"
+            style="@style/iconoHerramienta"
+            android:text="123"
+            android:textOff="123"
+            android:textOn="123"/>
+
+        <ToggleButton
+            android:id="@+id/btSimbolos"
+            style="@style/iconoHerramienta"
+            android:text="%*!"
+            android:textOff="%*!"
+            android:textOn="%*!"/>
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
