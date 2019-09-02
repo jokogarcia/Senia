@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "876059671653",
+    "firebase_url": "https://senia-f7c0c.firebaseio.com",
+    "project_id": "senia-f7c0c",
+    "storage_bucket": "senia-f7c0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876059671653:android:0294acc147eb41c7",
+        "android_client_info": {
+          "package_name": "com.irazu.senia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876059671653-5tmbmgv3ahkea3m4pi90k63lkqj4l0nt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQcH1u_l1lgsuv793FTFY13GqmpdFf1_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876059671653-5tmbmgv3ahkea3m4pi90k63lkqj4l0nt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
